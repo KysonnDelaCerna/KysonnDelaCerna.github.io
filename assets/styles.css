@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    background-color: #131313;
 }
 
 /* NAVBAR */
