@@ -16,8 +16,8 @@ function checkKeys () {
     if (keys.toString() === "g,i,t,h,u,b") {
         window.location.href = "http://www.github.com/KysonnDelaCerna";
     }
-    if (keys.toString() === "c,l,i,c,k,e,r") {
-        window.location.href = "https://www.kysonndelacerna.github.io/clicker";
+    else if (keys.toString() === "c,l,i,c,k,e,r") {
+        window.location.href = "/clicker";
     }
 
     keys = [];
