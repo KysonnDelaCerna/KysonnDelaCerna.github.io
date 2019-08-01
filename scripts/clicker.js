@@ -6,3 +6,11 @@ function chopWood () {
 
     document.getElementById('wood').innerHTML = 'Wood: ' + wood;
 }
+
+function saveCookies () {
+    Cookies.set('wood', wood.toString(), {expires: 7, path: ''});
+
+    console.log(document.cookies);
+}
+
+setInterval(saveCookies, 10000);
