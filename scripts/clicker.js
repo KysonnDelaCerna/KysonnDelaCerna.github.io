@@ -4,13 +4,24 @@ let woodPerClick = 1;
 function chopWood () {
     wood += woodPerClick;
 
+    update();
+}
+
+function saveData () {
+    localStorage.setItem('wood', wood);
+    localStorage.setItem('woodPerClick', woodPerClick);
+}
+
+function loadData () {
+    wood = localStorage.wood;
+    woodPerClick = localStorage.woodPerClick;
+
+    update();
+}
+
+function update () {
     document.getElementById('wood').innerHTML = 'Wood: ' + wood;
 }
 
-function saveCookies () {
-    Cookies.set('wood', wood.toString(), {expires: 7, path: ''});
-
-    console.log(document.cookies);
-}
-
-setInterval(saveCookies, 10000);
+loadData();
+setInterval(saveData, 300000);
