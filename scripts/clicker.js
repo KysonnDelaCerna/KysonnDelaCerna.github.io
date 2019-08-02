@@ -14,9 +14,9 @@ function saveData () {
 
 function loadData () {
     if (typeof(localStorage.wood) !== 'undefined')
-        wood = localStorage.wood;
+        wood = parseInt(localStorage.wood);
     if (typeof(localStorage.woodPerClick) !== 'undefined')
-        woodPerClick = localStorage.woodPerClick;
+        woodPerClick = parseInt(localStorage.woodPerClick);
 
     update();
 }
