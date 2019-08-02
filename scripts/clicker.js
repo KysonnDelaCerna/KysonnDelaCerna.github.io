@@ -13,8 +13,10 @@ function saveData () {
 }
 
 function loadData () {
-    wood = localStorage.wood;
-    woodPerClick = localStorage.woodPerClick;
+    if (typeof(localStorage.wood) !== 'undefined')
+        wood = localStorage.wood;
+    if (typeof(localStorage.woodPerClick) !== 'undefined')
+        woodPerClick = localStorage.woodPerClick;
 
     update();
 }
