@@ -44,13 +44,13 @@ function update () {
 
     if (player.house === 0 && player.wood >= 100 && document.getElementById("buildHouse") === null) {
         let btn = document.createElement("BUTTON");
-        btn.innerHTML = "Build House (100 Wood)";
+        btn.innerHTML = "Build House</br>(100 Wood)";
         btn.id = "buildHouse";
         btn.onclick = function() {buildHouse();};
         document.body.appendChild(btn);
     }
 
-    if (player.house >= 1 && document.getElementById("researchPoints") === null && document.getElementById("research") === null) {
+    if (document.getElementById("researchPoints") === null && document.getElementById("research") === null && player.house >= 1) {
         let p = document.createElement("P");
         p.innerHTML = "Research" + player.research;
         p.id = "researchPoints";
@@ -61,7 +61,7 @@ function update () {
         p.onclick = function() {research();};
         document.body.appendChild(p);
     } else {
-        document.getElementById('reseachPoints').innerHTML = 'Research: ' + player.research;
+        document.getElementById('researchPoints').innerHTML = 'Research: ' + player.research;
     }
 }
 
