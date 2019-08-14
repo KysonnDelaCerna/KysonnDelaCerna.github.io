@@ -5,7 +5,7 @@ let player = {
 }
 
 function chopWood () {
-    wood += woodPerClick;
+    player.wood += player.woodPerClick;
 
     update();
 }
