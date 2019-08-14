@@ -1,8 +1,10 @@
 let wood = 0;
 let woodPerClick = 1;
+let trees = 1000000;
 
 function chopWood () {
     wood += woodPerClick;
+    trees -= 1;
 
     update();
 }
@@ -10,6 +12,7 @@ function chopWood () {
 function saveData () {
     localStorage.setItem('wood', wood);
     localStorage.setItem('woodPerClick', woodPerClick);
+    localStorage.setItem('trees', trees);
 }
 
 function loadData () {
@@ -17,13 +20,16 @@ function loadData () {
         wood = parseInt(localStorage.wood);
     if (typeof(localStorage.woodPerClick) !== 'undefined')
         woodPerClick = parseInt(localStorage.woodPerClick);
+    if (typeof(localStorage.trees) !== 'undefined')
+        trees = parseInt(localStorage.trees);
 
     update();
 }
 
 function update () {
     document.getElementById('wood').innerHTML = 'Wood: ' + wood;
+    document.getElementById('trees').innerHTML = 'Trees: ' + trees;
 }
 
 loadData();
-setInterval(saveData, 300000);
+setInterval(saveData, 60000);
