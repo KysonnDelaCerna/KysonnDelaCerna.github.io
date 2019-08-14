@@ -31,6 +31,8 @@ function buildHouse () {
 
     let btn = document.getElementById("buildHouse");
     btn.parentElement.removeChild(btn);
+
+    update();
 }
 
 function research () {
@@ -61,7 +63,11 @@ function update () {
         p.onclick = function() {research();};
         document.body.appendChild(p);
     } else {
-        document.getElementById('researchPoints').innerHTML = 'Research: ' + player.research;
+        try {
+            document.getElementById('researchPoints').innerHTML = 'Research: ' + player.research;
+        } catch (error) {
+            ;
+        }
     }
 }
 
