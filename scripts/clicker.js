@@ -50,7 +50,7 @@ function update () {
         document.body.appendChild(btn);
     }
 
-    if (document.getElementById("researchPoints") === null && document.getElementById("research") === null && player.house >= 1) {
+    if (player.house >= 1 && document.getElementById("researchPoints") === null && document.getElementById("research") === null) {
         let p = document.createElement("P");
         p.innerHTML = "Research" + player.research;
         p.id = "researchPoints";
