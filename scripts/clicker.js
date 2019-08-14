@@ -3,6 +3,9 @@ let woodPerClick = 1;
 let trees = 1000000;
 
 function chopWood () {
+    if (trees <= 0)
+        return;
+    
     wood += woodPerClick;
     trees -= 1;
 
