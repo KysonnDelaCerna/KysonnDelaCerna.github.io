@@ -1,6 +1,6 @@
 let player = {
-    wood: "0",
-    woodPerClick: "1",
+    wood: 0,
+    woodPerClick: 1,
     house: "false"
 }
 
