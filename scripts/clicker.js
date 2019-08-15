@@ -54,7 +54,7 @@ function update () {
 
     if (document.getElementById("researchPoints") === null && document.getElementById("research") === null && player.house >= 1) {
         let p = document.createElement("P");
-        p.innerHTML = "Research" + player.research;
+        p.innerHTML = "Research: " + player.research;
         p.id = "researchPoints";
         document.body.appendChild(p);
         p = document.createElement("BUTTON");
