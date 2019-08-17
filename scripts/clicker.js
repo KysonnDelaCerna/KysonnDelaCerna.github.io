@@ -1,12 +1,20 @@
 let player = {
-    wood: 0,
-    woodPerClick: 1,
-    house: 0
+    "resource": {
+        "wood": {
+            "amount": 0,
+            "perClick": 1
+        }
+    },
+    "house": 0
 }
 
 function chopWood () {
-    player.wood += player.woodPerClick;
+    player.resource.wood.amount += player.resource.wood.perClick;
+    update();
+}
 
+function research () {
+    player.resource.research.amount += player.resource.research.perClick;
     update();
 }
 
@@ -21,40 +29,36 @@ function loadData () {
     update();
 }
 
-function buildHouse () {
-    if (player.house == 0 && player.wood >= 100) {
-        player.wood -= 100;
+function upgradeHouse () {
+    if (player.house == 0 && player.resource.wood.amount >= 100) {
+        player.resource.wood.amount -= 100;
         player.house = 1;
-        player.research = 0;
-        player.researchPerClick = 1;
+        player.resource.research = {
+            amount: 0,
+            perClick: 1
+        };
     }
 
-    let btn = document.getElementById("buildHouse");
+    let btn = document.getElementById("upgradeHouse");
     btn.parentElement.removeChild(btn);
 
     update();
 }
 
-function research () {
-    player.research += player.researchPerClick;
-
-    update();
-}
-
 function update () {
-    document.getElementById('wood').innerHTML = 'Wood: ' + player.wood;
+    document.getElementById('wood').innerHTML = 'Wood: ' + player.resource.wood.amount;
 
-    if (player.house === 0 && player.wood >= 100 && document.getElementById("buildHouse") === null) {
+    if (player.house === 0 && player.resource.wood.amount >= 100 && document.getElementById("upgradeHouse") === null) {
         let btn = document.createElement("BUTTON");
         btn.innerHTML = "Build House</br>(100 Wood)";
-        btn.id = "buildHouse";
-        btn.onclick = function() {buildHouse();};
+        btn.id = "upgradeHouse";
+        btn.onclick = function() {upgradeHouse();};
         document.body.appendChild(btn);
     }
 
     if (document.getElementById("researchPoints") === null && document.getElementById("research") === null && player.house >= 1) {
         let p = document.createElement("P");
-        p.innerHTML = "Research: " + player.research;
+        p.innerHTML = "Research: " + player.resource.research.amount;
         p.id = "researchPoints";
         document.body.appendChild(p);
         p = document.createElement("BUTTON");
@@ -64,7 +68,7 @@ function update () {
         document.body.appendChild(p);
     } else {
         try {
-            document.getElementById('researchPoints').innerHTML = 'Research: ' + player.research;
+            document.getElementById('researchPoints').innerHTML = 'Research: ' + player.resource.research.amount;
         } catch (error) {
             ;
         }
