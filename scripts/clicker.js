@@ -1,20 +1,16 @@
 let player = {
-    "resource": {
-        "wood": {
-            "amount": 0,
-            "perClick": 1
+    resource: {
+        wood: {
+            amount: 0,
+            perClick: 1
         }
     },
-    "house": 0
+    house: 0
 }
 
-function chopWood () {
-    player.resource.wood.amount += player.resource.wood.perClick;
-    update();
-}
+function click (type) {
+    player.resource[type].amount += player.resource[type].perClick;
 
-function research () {
-    player.resource.research.amount += player.resource.research.perClick;
     update();
 }
 
@@ -25,6 +21,8 @@ function saveData () {
 function loadData () {
     if (typeof(localStorage.player) !== 'undefined')
         player = JSON.parse(localStorage.player)
+
+    document.getElementById("chopWood").onclick = function() {click('wood');};
 
     update();
 }
@@ -56,19 +54,19 @@ function update () {
         document.body.appendChild(btn);
     }
 
-    if (document.getElementById("researchPoints") === null && document.getElementById("research") === null && player.house >= 1) {
+    if (document.getElementById("researchAmount") === null && document.getElementById("research") === null && player.house >= 1) {
         let p = document.createElement("P");
         p.innerHTML = "Research: " + player.resource.research.amount;
-        p.id = "researchPoints";
+        p.id = "researchAmount";
         document.body.appendChild(p);
         p = document.createElement("BUTTON");
         p.id = "research";
         p.innerHTML = "Research";
-        p.onclick = function() {research();};
+        p.onclick = function() {click('research');};
         document.body.appendChild(p);
     } else {
         try {
-            document.getElementById('researchPoints').innerHTML = 'Research: ' + player.resource.research.amount;
+            document.getElementById('researchAmount').innerHTML = 'Research: ' + player.resource.research.amount;
         } catch (error) {
             ;
         }
