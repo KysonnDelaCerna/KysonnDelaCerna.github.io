@@ -2,9 +2,10 @@ let player = {
     resource: {
         wood: {
             amount: 0,
-            perClick: 1
+            perClick: 1,
         }
     },
+    upgrades: [],
     house: 0
 }
 
@@ -27,14 +28,16 @@ function loadData () {
     update();
 }
 
+function resource () {
+    this.amount = 0;
+    this.perClick = 1;
+}
+
 function upgradeHouse () {
     if (player.house == 0 && player.resource.wood.amount >= 100) {
         player.resource.wood.amount -= 100;
         player.house = 1;
-        player.resource.research = {
-            amount: 0,
-            perClick: 1
-        };
+        player.resource.research = new resource();
     }
 
     let btn = document.getElementById("upgradeHouse");
