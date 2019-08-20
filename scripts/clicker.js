@@ -20,6 +20,8 @@ function loadData () {
 
     if (typeof(player.resource.research) !== 'undefined')
         createResource('Research', 'Do Research', function() {research();});
+    if (typeof(player.resource.sticks !== 'undefined'))
+        createResource('Sticks', 'Make Sticks</br>(1 Wood)', function() {makeSticks();});
 
     player.availableUpgrades.forEach(function (value) {unlock(value);});
 
@@ -32,7 +34,7 @@ function resource () {
     this.perClick = 1;
 }
 
-// Wood
+// Clickys
 function chopWood () {
     player.resource.wood.amount += player.resource.wood.perClick;
 
@@ -41,9 +43,19 @@ function chopWood () {
     update();
 }
 
-// Research
 function research () {
     player.resource.research.amount += player.resource.research.perClick;
+
+    if (player.resource.research.amount >= 10) upgrade('sticks');
+
+    update();
+}
+
+function makeSticks () {
+    if (player.resource.wood.amount >= 1) {
+        player.resource.wood.amount -= player.resource.sticks.perClick;
+        player.resource.sticks.amount += player.resource.sticks.perClick;
+    }
 
     update();
 }
@@ -52,6 +64,7 @@ function research () {
 function unlock (id) {
     switch (id) {
         case 'woodHouse': createButton('woodHouse', 'Build House</br>(100 Wood)', function() {if (upgradeHouse()) this.parentElement.removeChild(this);}); break;
+        case 'sticks': createButton('sticks', 'Research Sticks</br>(10 Research</br>10 Wood)', function() {if (researchSticks()) this.parentElement.removeChild(this);}); break;
     }
 }
 
@@ -75,7 +88,7 @@ function createButton (id, message, func) {
 function upgradeHouse () {
     let upgraded = false;
 
-    if (player.resource.wood.amount >= 100 && player.upgrades.indexOf('woodHouse') === -1) {
+    if (player.resource.wood.amount >= 100 && player.upgrades.indexOf('woodHouse') === -1 && player.availableUpgrades.indexOf('woodHouse') > -1) {
         player.resource.wood.amount -= 100;
         player.upgrades.push('woodHouse');
         player.availableUpgrades = player.availableUpgrades.filter(function (value, index, arr) {return value !== 'woodHouse';});
@@ -86,6 +99,26 @@ function upgradeHouse () {
 
     update();
     return upgraded;
+}
+
+function researchSticks () {
+    let researched = false;
+
+    if (player.resource.wood.amount >= 10 && 
+        player.resource.research.amount >= 10 &&
+        player.upgrades.indexOf('sticks') === -1 &&
+        player.availableUpgrades.indexOf('sticks') > -1) {
+        player.resource.wood.amount -= 10;
+        player.resource.research.amount -= 10;
+        player.upgrades.push('sticks');
+        player.availableUpgrades = player.availableUpgrades.filter(function (value, index, arr) {return value !== 'sticks';});
+        player.resource.sticks = new resource();
+        createResource('Sticks', 'Make Sticks</br>(1 Wood)', function() {makeSticks();});
+        researched = true;
+    }
+
+    update();
+    return researched;
 }
 
 function createResource (resourceName, resourceAction, resourceFunc) {
@@ -101,8 +134,8 @@ function createResource (resourceName, resourceAction, resourceFunc) {
 
 function update () {
     document.getElementById('woodAmount').innerHTML = 'Wood: ' + player.resource.wood.amount;
-
     try {document.getElementById('researchAmount').innerHTML = 'Research: ' + player.resource.research.amount;} catch (error) {;}
+    try {document.getElementById('sticksAmount').innerHTML = 'Sticks: ' + player.resource.sticks.amount;} catch (error) {;}
 }
 
 loadData();
