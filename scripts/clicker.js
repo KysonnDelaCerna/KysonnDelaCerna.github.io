@@ -21,6 +21,8 @@ function loadData () {
     if (typeof(player.resource.research) !== 'undefined')
         createResource('Research', 'Do Research', function() {research();});
 
+    player.availableUpgrades.forEach(function (value) {unlock(value);});
+
     update();
 }
 
@@ -34,7 +36,7 @@ function resource () {
 function chopWood () {
     player.resource.wood.amount += player.resource.wood.perClick;
 
-    if (player.resource.wood.amount >= 100) unlock('woodHouse', 'Build House</br>(100 Wood)', function() {upgradeHouse(); this.parentElement.removeChild(this);});
+    if (player.resource.wood.amount >= 100) upgrade('woodHouse');
 
     update();
 }
@@ -47,24 +49,34 @@ function research () {
 }
 
 // Upgrades
-function unlock (id, message, func) {
+function unlock (id) {
+    switch (id) {
+        case 'woodHouse': createButton('woodHouse', 'Build House</br>(100 Wood)', function() {upgradeHouse(); this.parentElement.removeChild(this);}); break;
+    }
+}
+
+function upgrade (id) {
     if (player.availableUpgrades.indexOf(id) === -1 && player.upgrades.indexOf(id) === -1) {
         player.availableUpgrades.push(id);
-        let btn = document.createElement("BUTTON");
-
-        btn.id = id;
-        btn.innerHTML = message;
-        btn.onclick = func;
-
-        document.getElementById('upgrades').appendChild(btn);
+        unlock(id);
     }
+}
+
+function createButton (id, message, func) {
+    let btn = document.createElement("BUTTON");
+
+    btn.id = id;
+    btn.innerHTML = message;
+    btn.onclick = func;
+
+    document.getElementById('upgrades').appendChild(btn);
 }
 
 function upgradeHouse () {
     if (player.resource.wood.amount >= 100 && player.upgrades.indexOf('woodHouse') === -1) {
         player.resource.wood.amount -= 100;
         player.upgrades.push('woodHouse');
-        player.availableUpgrades.filter(function (value, index, arr) {return value !== 'woodHouse';});
+        player.availableUpgrades = player.availableUpgrades.filter(function (value, index, arr) {return value !== 'woodHouse';});
         player.resource.research = new resource();
         createResource('Research', 'Do Research', function() {research();});
     }
