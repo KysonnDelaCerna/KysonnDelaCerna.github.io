@@ -51,7 +51,7 @@ function research () {
 // Upgrades
 function unlock (id) {
     switch (id) {
-        case 'woodHouse': createButton('woodHouse', 'Build House</br>(100 Wood)', function() {upgradeHouse(); this.parentElement.removeChild(this);}); break;
+        case 'woodHouse': createButton('woodHouse', 'Build House</br>(100 Wood)', function() {if (upgradeHouse()) this.parentElement.removeChild(this);}); break;
     }
 }
 
@@ -73,15 +73,19 @@ function createButton (id, message, func) {
 }
 
 function upgradeHouse () {
+    let upgraded = false;
+
     if (player.resource.wood.amount >= 100 && player.upgrades.indexOf('woodHouse') === -1) {
         player.resource.wood.amount -= 100;
         player.upgrades.push('woodHouse');
         player.availableUpgrades = player.availableUpgrades.filter(function (value, index, arr) {return value !== 'woodHouse';});
         player.resource.research = new resource();
         createResource('Research', 'Do Research', function() {research();});
+        upgraded = true;
     }
 
     update();
+    return upgraded;
 }
 
 function createResource (resourceName, resourceAction, resourceFunc) {
