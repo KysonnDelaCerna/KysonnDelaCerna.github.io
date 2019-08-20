@@ -6,15 +6,10 @@ let player = {
         }
     },
     upgrades: [],
-    house: 0
+    availableUpgrades: []
 }
 
-function click (type) {
-    player.resource[type].amount += player.resource[type].perClick;
-
-    update();
-}
-
+// Saving and loading
 function saveData () {
     localStorage.setItem('player', JSON.stringify(player));
 }
@@ -23,57 +18,75 @@ function loadData () {
     if (typeof(localStorage.player) !== 'undefined')
         player = JSON.parse(localStorage.player)
 
-    document.getElementById("chopWood").onclick = function() {click('wood');};
+    if (typeof(player.resource.research) !== 'undefined')
+        createResource('Research', 'Do Research', function() {research();});
 
     update();
 }
 
+// Constructors
 function resource () {
     this.amount = 0;
     this.perClick = 1;
 }
 
-function upgradeHouse () {
-    if (player.house == 0 && player.resource.wood.amount >= 100) {
-        player.resource.wood.amount -= 100;
-        player.house = 1;
-        player.resource.research = new resource();
-    }
+// Wood
+function chopWood () {
+    player.resource.wood.amount += player.resource.wood.perClick;
 
-    let btn = document.getElementById("upgradeHouse");
-    btn.parentElement.removeChild(btn);
+    if (player.resource.wood.amount >= 100) unlock('woodHouse', 'Build House</br>(100 Wood)', function() {upgradeHouse(); this.parentElement.removeChild(this);});
 
     update();
 }
 
-function update () {
-    document.getElementById('wood').innerHTML = 'Wood: ' + player.resource.wood.amount;
+// Research
+function research () {
+    player.resource.research.amount += player.resource.research.perClick;
 
-    if (player.house === 0 && player.resource.wood.amount >= 100 && document.getElementById("upgradeHouse") === null) {
+    update();
+}
+
+// Upgrades
+function unlock (id, message, func) {
+    if (player.availableUpgrades.indexOf(id) === -1 && player.upgrades.indexOf(id) === -1) {
+        player.availableUpgrades.push(id);
         let btn = document.createElement("BUTTON");
-        btn.innerHTML = "Build House</br>(100 Wood)";
-        btn.id = "upgradeHouse";
-        btn.onclick = function() {upgradeHouse();};
-        document.body.appendChild(btn);
+
+        btn.id = id;
+        btn.innerHTML = message;
+        btn.onclick = func;
+
+        document.getElementById('upgrades').appendChild(btn);
+    }
+}
+
+function upgradeHouse () {
+    if (player.resource.wood.amount >= 100 && player.upgrades.indexOf('woodHouse') === -1) {
+        player.resource.wood.amount -= 100;
+        player.upgrades.push('woodHouse');
+        player.availableUpgrades.filter(function (value, index, arr) {return value !== 'woodHouse';});
+        player.resource.research = new resource();
+        createResource('Research', 'Do Research', function() {research();});
     }
 
-    if (document.getElementById("researchAmount") === null && document.getElementById("research") === null && player.house >= 1) {
-        let p = document.createElement("P");
-        p.innerHTML = "Research: " + player.resource.research.amount;
-        p.id = "researchAmount";
-        document.body.appendChild(p);
-        p = document.createElement("BUTTON");
-        p.id = "research";
-        p.innerHTML = "Research";
-        p.onclick = function() {click('research');};
-        document.body.appendChild(p);
-    } else {
-        try {
-            document.getElementById('researchAmount').innerHTML = 'Research: ' + player.resource.research.amount;
-        } catch (error) {
-            ;
-        }
-    }
+    update();
+}
+
+function createResource (resourceName, resourceAction, resourceFunc) {
+    let p = document.createElement("P");
+    p.id = resourceName.toLowerCase() + "Amount";
+    document.getElementById('resources').appendChild(p);
+    p = document.createElement("BUTTON");
+    p.id = resourceName.toLowerCase();
+    p.innerHTML = resourceAction;
+    p.onclick = resourceFunc;
+    document.getElementById('resources').appendChild(p);
+}
+
+function update () {
+    document.getElementById('woodAmount').innerHTML = 'Wood: ' + player.resource.wood.amount;
+
+    try {document.getElementById('researchAmount').innerHTML = 'Research: ' + player.resource.research.amount;} catch (error) {;}
 }
 
 loadData();
