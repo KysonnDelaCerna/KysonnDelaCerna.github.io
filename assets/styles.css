@@ -14,3 +14,8 @@ p {
   float: right;
   margin-right: 1%;
 }
+
+#gibby {
+  overflow: hidden;
+  margin-top:-50%;
+}
