@@ -9,6 +9,8 @@ let player = {
     availableUpgrades: []
 }
 
+let upgrades = {};
+
 // Saving and loading
 function saveData () {
     localStorage.setItem('player', JSON.stringify(player));
