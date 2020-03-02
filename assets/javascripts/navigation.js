@@ -16,10 +16,6 @@ function checkKeys () {
     if (keys.toString() === 'g,i,t,h,u,b') {
         window.location.href = 'https://www.github.com/KysonnDelaCerna';
     }
-    else if (keys.toString() === 'c,l,i,c,k,e,r') {
-        if (document.title !== 'Clicker')
-            window.location.href = '/clicker';
-    }
     else if (keys.toString() === 'h,o,m,e') {
         if (document.title !== 'Kysonn Dela Cerna')
             window.location.href = '/';

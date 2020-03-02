@@ -15,11 +15,6 @@ p {
   color: white;
 }
 
-#upgrades {
-  float: right;
-  margin-right: 1%;
-}
-
 #gibby {
   overflow: hidden;
   position: relative;
