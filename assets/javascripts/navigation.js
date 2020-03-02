@@ -25,12 +25,12 @@ function checkKeys () {
             let elem = document.getElementById("gibby");
             let audio = new Audio('assets/sounds/gibby.mp3');
             audio.play(); 
-            let pos = -200;
+            let pos = -210;
             let id = setInterval(frame, (document.documentElement.clientHeight + 200) / 1280);
             function frame() {
                 if (pos == document.documentElement.clientHeight + 200) {
                     clearInterval(id);
-                    elem.style.marginTop = '-200px';
+                    elem.style.marginTop = '-210px';
                 } else {
                     pos += 12;
                     elem.style.marginTop = pos + 'px';
