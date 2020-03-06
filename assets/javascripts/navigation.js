@@ -15,12 +15,10 @@ function keyup(e) {
 function checkKeys () {
     if (keys.toString() === 'g,i,t,h,u,b') {
         window.location.href = 'https://www.github.com/KysonnDelaCerna';
-    }
-    else if (keys.toString() === 'h,o,m,e') {
+    } else if (keys.toString() === 'h,o,m,e') {
         if (document.title !== 'Kysonn Dela Cerna')
             window.location.href = '/';
-    }
-    else if (keys.toString() === 'g,i,b,b,y') {
+    } else if (keys.toString() === 'g,i,b,b,y') {
         if (document.title == 'Kysonn Dela Cerna') {
             let elem = document.getElementById("gibby");
             let audio = new Audio('assets/sounds/gibby.mp3');
@@ -38,6 +36,8 @@ function checkKeys () {
             }
             console.log("GIBBY");
         }
+    } else if (keys.toString() === 'm,e,m,e,t,g,a') {
+        window.location.href = 'https://kysonndelacerna.github.io/MemeTGA';
     }
 
     keys = [];
