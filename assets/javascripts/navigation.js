@@ -38,6 +38,8 @@ function checkKeys () {
         }
     } else if (keys.toString() === 'm,e,m,e,t,g,a') {
         window.location.href = 'https://kysonndelacerna.github.io/MemeTGA';
+    } else if (keys.toString() === 'a,n,t,s') {
+        window.location.href = 'https://kysonndelacerna.github.io/Colorful-Ants';
     }
 
     keys = [];
