@@ -40,6 +40,8 @@ function checkKeys () {
         window.location.href = 'https://kysonndelacerna.github.io/MemeTGA';
     } else if (keys.toString() === 'a,n,t,s') {
         window.location.href = 'https://kysonndelacerna.github.io/Colorful-Ants';
+    } else if (keys.toString() === '2,0,4,8' || keys.toString() === '2,n,2,2,2,2,0,4,8') {
+        window.location.href = 'https://kysonndelacerna.github.io/2N2222048';
     }
 
     keys = [];
