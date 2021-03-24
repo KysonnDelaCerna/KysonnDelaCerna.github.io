@@ -10,14 +10,3 @@ body {
   overflow: hidden;
   position: absolute;
 }
-
-p {
-  color: white;
-}
-
-#gibby {
-  overflow: hidden;
-  position: relative;
-  top: -210px;
-  float: left;  
-}
