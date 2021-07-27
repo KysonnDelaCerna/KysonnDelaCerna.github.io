@@ -2,14 +2,32 @@
 	<head>
 		<title>Kysonn Dela Cerna</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" href="assets/images/favicon.png">
-		<link rel="stylesheet" href="assets/stylesheets/styles.css">
+		<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 		<!-- from Vincent Garreau -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	</head>
-	<body>
-		<div id="particles-js" class="container">
+	<body class="overflow-x-hidden">
+		<div id="particles-js" class="bg-gradient-to-b from-purple-900 via-indigo-900 to-gray-900 h-full relative">
+			<div class="absolute inset-x-0 top-1/2 lg:left-1/2 transform -translate-y-1/2 lg:-translate-x-1/2">
+				<h1 class="text-white text-center font-bold text-7xl lg:text-8xl">&lt;Kysonn Dela Cerna/&gt;</h1>
+				<h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pt-4">Computer Science Student</h2>
+			</div>
 		</div>
-		<script src="assets/javascripts/particle.js"></script>
+		<script src="assets/js/particle.js"></script>
+		<div id="repositories"></div>
+		<script src="assets/js/repositories.js"></script>
+		<div class="bg-gradient-to-b from-gray-900 to-black h-full relative">
+			<div class="absolute inset-x-0 top-1/2 lg:left-1/2 transform -translate-y-1/2 lg:-translate-x-1/2">
+				<h1 class="text-white text-center font-bold text-5xl lg:text-6xl pt-4 lg:pt-10">Contact</h1>
+				<h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pt-4 pb-6">Want to work together? Send me an email.</h2>
+				<div class="text-center">
+					<a href="mailto:kysonndelacerna@gmail.com"><button class="rounded-md text-white font-semibold text-4xl py-5 px-20 border-2 mt-6">
+						Email Me
+					</button></a>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
