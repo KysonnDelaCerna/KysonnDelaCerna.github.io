@@ -14,10 +14,10 @@ const app = Vue.createApp({
             <div v-else class="lg:grid lg:grid-cols-2 w-11/12 lg:w-4/5 mx-auto lg:gap-8">
                 <div v-for="repository in repositories" class="pb-4 relative z-10">
                     <div class="flex flex-row justify-between bg-white bg-opacity-90 mx-auto rounded-lg p-5 filter drop-shadow-lg w-full lg:h-48">
-                        <div class="flex flex-col items-start space-y-1">
-                            <h1 class="font-bold text-xl break-words">{{ repository.name }}</h1>
-                            <h2 class="font-semibold text-lg break-words">{{ repository.description }}</h2>
-                            <h2 class="break-words">Made with: {{ repository.language }}</h2>
+                        <div class="flex flex-col items-start space-y-1 w-2/3 lg:w-4/5">
+                            <h1 class="font-bold text-xl break-all w-full">{{ repository.name }}</h1>
+                            <h2 class="font-semibold text-lg break-all w-full">{{ repository.description }}</h2>
+                            <h2 class="break-all w-full">Made with: {{ repository.language }}</h2>
                         </div>
                         <div class="w-24 ml-4">
                             <div class="flex flex-col items-end space-y-2">
