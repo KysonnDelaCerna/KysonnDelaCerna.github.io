@@ -1,37 +1,9 @@
 const app = Vue.createApp({
     template: `
         <div class="relative bg-gray-900 w-full">
-            <h1 class="text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10">Github Repositories</h1>
+            <showcase title="Github Repositories" :projects="repositories" />
 
-            <div v-if="!repositories">
-                <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Can't get Github repositories</h2>
-            </div>
-            
-            <div v-if="repositories.length === 0">
-                <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Loading Github repositories</h2>
-            </div>
-
-            <div v-else class="flex flex-row flex-wrap justify-evenly">
-                <card :link="repository.html_url" :name="repository.name" :desc="repository.description" :lang="repository.language" v-for="repository in repositories"/>
-            </div>
-
-            <h1 class="text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10">Contributing</h1>
-
-            <div v-if="!forks">
-                <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Can't get Github repositories</h2>
-            </div>
-            
-            <div v-if="forks.length === 0">
-                <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Loading Github repositories</h2>
-            </div>
-
-            <div v-else class="flex flex-row flex-wrap justify-evenly">
-                <card :link="fork.html_url" :name="fork.name" :desc="fork.description" :lang="fork.language" v-for="fork in forks"/>
-            </div>
-
-            <div class="py-2 lg:py-6"></div>
-
-            <div class="absolute inset-0 w-full h-full z-0 bg-gradient-to-b from-gray-900 via-transparent to-gray-900"></div>
+            <showcase title="Contributing" :projects="forks" />
         </div>
     `,
     data () {
@@ -80,6 +52,25 @@ app.component('card', {
             this.langClass = `devicon-${this.lang}-plain`;
         }
     }
+});
+
+app.component('showcase', {
+    props: ['title', 'projects'],
+    template: `
+        <h1 class="text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10">{{ title }}</h1>
+
+        <div v-if="!projects">
+            <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Can't get Github repositories</h2>
+        </div>
+        
+        <div v-if="projects.length === 0">
+            <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Loading Github repositories</h2>
+        </div>
+
+        <div v-else class="flex flex-row flex-wrap justify-evenly">
+            <card :link="project.html_url" :name="project.name" :desc="project.description" :lang="project.language" v-for="project in projects"/>
+        </div>
+    `
 });
 
 app.mount('#repositories');
