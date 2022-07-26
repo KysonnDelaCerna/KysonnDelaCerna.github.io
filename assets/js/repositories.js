@@ -38,9 +38,9 @@ app.component('card', {
     },
     template: `
     <a :href="link" target="_blank">
-        <div class="my-4 w-96 h-72 bg-white border-t-4 border-solid p-6 relative rounded-lg drop-shadow-lg card border-orange-600 text-orange-600 transition ease-in-out duration-150 hover:border-orange-500 hover:text-orange-500 hover:rotate-3 hover:scale-105 z-10">
-        <h1 class="font-bold text-2xl break-all w-full mb-4 text-slate-800">{{ name }}</h1>
-        <h2 class="font-semibold text-xl break-words w-full text-slate-700">{{ desc }}</h2>
+        <div class="my-4 w-80 h-64 md:w-96 md:h-72 bg-white border-t-4 border-solid p-6 relative rounded-lg drop-shadow-lg card border-orange-600 text-orange-600 transition ease-in-out duration-150 hover:border-orange-500 hover:text-orange-500 hover:rotate-3 hover:scale-105 z-10">
+        <h1 class="font-bold text-lg md:text-2xl break-all w-full mb-4 text-slate-800">{{ name }}</h1>
+        <h2 class="font-semibold text-md md:text-xl break-words w-full text-slate-700">{{ desc }}</h2>
         <i class="text-7xl absolute bottom-6 right-6" :class="langClass"></i>
         </div>
     </a>
@@ -67,7 +67,7 @@ app.component('showcase', {
             <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg">Loading Github repositories</h2>
         </div>
 
-        <div v-else class="flex flex-row flex-wrap justify-evenly">
+        <div v-else class="flex flex-row flex-wrap justify-evenly md:px-8">
             <card :link="project.html_url" :name="project.name" :desc="project.description" :lang="project.language" v-for="project in projects"/>
         </div>
     `
