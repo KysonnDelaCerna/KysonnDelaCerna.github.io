@@ -73,8 +73,6 @@ const app = Vue.createApp({
             
             const animate = document.querySelectorAll('.animate');
             animate.forEach((element) => obeserver.observe(element));
-
-            console.log(this.perRow);
         },
     }
 });
