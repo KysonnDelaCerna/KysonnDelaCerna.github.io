@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.7.1",
     "axios": "^1.4.0",
     "vue": "^3.2.47",
     "vue-axios": "^3.5.2"
