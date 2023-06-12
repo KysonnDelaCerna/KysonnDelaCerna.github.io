@@ -32,11 +32,6 @@
         :name="project.name"
         :desc="project.description"
         :lang="project.language"
-        :style="
-          perRow <= 1
-            ? '--order: 1;'
-            : '--order: ' + ((index % perRow) + 1) + ';'
-        "
         v-for="(project, index) in projects"
         :key="index"
         @finished="cardFinished"
@@ -51,7 +46,7 @@ import Card from "./Card.vue";
 export default {
   name: "Showcase",
   components: { Card },
-  props: ["title", "projects", "perRow"],
+  props: ["title", "projects"],
   data() {
     return {
       finishedCards: 0,

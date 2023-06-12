@@ -4,17 +4,9 @@
       class="showcase"
       title="Github Repositories"
       :projects="repositories"
-      :perRow="perRow"
-      @finished="showcaseFinished"
     />
 
-    <Showcase
-      class="showcase"
-      title="Contributing"
-      :projects="forks"
-      :perRow="perRow"
-      @finished="showcaseFinished"
-    />
+    <Showcase class="showcase" title="Contributing" :projects="forks" />
   </div>
 </template>
 
@@ -55,52 +47,6 @@ export default {
         this.repositories = null;
         this.forks = null;
       });
-  },
-  created() {
-    window.addEventListener("resize", this.updateWindowSize);
-    this.updateWindowSize();
-  },
-  destroyed() {
-    window.removeEventListener("resize", this.updateWindowSize);
-  },
-  computed: {
-    perRow() {
-      if (this.windowWidth >= 768) {
-        return Math.floor((this.windowWidth - 32 * 2) / 384);
-      } else {
-        return Math.floor(this.windowWidth / 320);
-      }
-    },
-  },
-  methods: {
-    showcaseFinished() {
-      this.finishedShowcases += 1;
-
-      if (this.finishedShowcases == 2) {
-        this.observe();
-      }
-    },
-    updateWindowSize() {
-      this.windowWidth = Math.max(
-        document.body.scrollWidth,
-        document.documentElement.scrollWidth,
-        document.body.offsetWidth,
-        document.documentElement.offsetWidth,
-        document.documentElement.clientWidth
-      );
-    },
-    observe() {
-      const obeserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("fade-in");
-          }
-        });
-      });
-
-      const animate = document.querySelectorAll(".animate");
-      animate.forEach((element) => obeserver.observe(element));
-    },
   },
 };
 </script>
