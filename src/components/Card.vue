@@ -38,3 +38,26 @@ export default {
   },
 };
 </script>
+
+<style lang="css">
+.animate {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateX(-100%);
+  transition: opacity 1.5s, filter 1.5s, transform 1.5s;
+  transition-delay: calc(100ms * var(--order));
+  transition-timing-function: ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion) {
+  .animate {
+    transition: none;
+  }
+}
+</style>
