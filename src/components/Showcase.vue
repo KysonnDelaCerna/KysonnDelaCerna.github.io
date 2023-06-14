@@ -1,31 +1,18 @@
 <template>
   <div>
-    <h1
-      class="text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10"
-    >
+    <h1 class="title">
       {{ title }}
     </h1>
 
     <div v-if="!projects">
-      <h2
-        class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg"
-      >
-        Can't get Github repositories
-      </h2>
+      <h2 class="subtitle">Can't get Github repositories</h2>
     </div>
 
     <div v-if="projects.length === 0">
-      <h2
-        class="text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg"
-      >
-        Loading Github repositories
-      </h2>
+      <h2 class="subtitle">Loading Github repositories</h2>
     </div>
 
-    <div
-      v-else
-      class="flex flex-row flex-wrap justify-evenly content-evenly md:px-8"
-    >
+    <div v-else class="card-container">
       <Card
         class="my-4"
         :link="project.html_url"
@@ -33,8 +20,7 @@
         :desc="project.description"
         :lang="project.language"
         v-for="(project, index) in projects"
-        :key="index"
-        @finished="cardFinished"
+        :key="`${project.name}-${index}`"
       />
     </div>
   </div>
@@ -47,19 +33,19 @@ export default {
   name: "Showcase",
   components: { Card },
   props: ["title", "projects"],
-  data() {
-    return {
-      finishedCards: 0,
-    };
-  },
-  methods: {
-    cardFinished() {
-      this.finishedCards += 1;
-
-      if (this.finishedCards == this.projects.length) {
-        this.$emit("finished");
-      }
-    },
-  },
 };
 </script>
+
+<style lang="postcss">
+.title {
+  @apply text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10;
+}
+
+.subtitle {
+  @apply text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg;
+}
+
+.card-container {
+  @apply flex flex-row flex-wrap justify-evenly content-evenly md:px-8;
+}
+</style>

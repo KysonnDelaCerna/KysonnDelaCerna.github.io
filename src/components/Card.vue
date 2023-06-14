@@ -31,8 +31,6 @@ export default {
     } else {
       this.langClass = `devicon-${this.lang.toLowerCase()}-plain`;
     }
-
-    this.$emit("finished");
   },
 };
 </script>

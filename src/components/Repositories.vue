@@ -23,8 +23,6 @@ export default {
     return {
       repositories: [] as IRepository[] | null,
       forks: [] as IRepository[] | null,
-      finishedShowcases: 0,
-      windowWidth: 0,
     };
   },
   mounted() {
