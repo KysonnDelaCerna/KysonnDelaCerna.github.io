@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h1 class="title">
+    <h1 class="showcase-title">
       {{ title }}
     </h1>
 
     <div v-if="!projects">
-      <h2 class="subtitle">Can't get Github repositories</h2>
+      <h2 class="showcase-subtitle">Can't get Github repositories</h2>
     </div>
 
     <div v-if="projects.length === 0">
-      <h2 class="subtitle">Loading Github repositories</h2>
+      <h2 class="showcase-subtitle">Loading Github repositories</h2>
     </div>
 
-    <div v-else class="card-container">
+    <div v-else class="showcase-container">
       <Card
         class="my-4"
         :link="project.html_url"
@@ -36,16 +36,16 @@ export default {
 };
 </script>
 
-<style lang="postcss">
-.title {
+<style scoped lang="postcss">
+.showcase-title {
   @apply text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10;
 }
 
-.subtitle {
+.showcase-subtitle {
   @apply text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg;
 }
 
-.card-container {
+.showcase-container {
   @apply flex flex-row flex-wrap justify-evenly content-evenly md:px-8;
 }
 </style>
