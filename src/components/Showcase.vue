@@ -36,7 +36,9 @@ export default {
 };
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
+@reference "tailwindcss";
+
 .showcase-title {
   @apply text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10;
 }

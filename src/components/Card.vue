@@ -35,7 +35,9 @@ export default {
 };
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
+@reference "tailwindcss";
+
 .card {
   @apply w-80 h-64 md:w-96 md:h-72 bg-slate-800 p-6 rounded-md drop-shadow-lg overflow-hidden z-0;
 }
