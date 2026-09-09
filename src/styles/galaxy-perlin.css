@@ -1,0 +1,22 @@
+#galaxy-perlin {
+    background-image: url("/pictures/perlin.jpg");
+    background-repeat: repeat;
+    background-size: 25%;
+    position: absolute;
+    z-index: 10;
+    width: 200%;
+    height: 100%;
+    animation: pulse 25s ease-in-out infinite, slide-x 30s linear infinite;
+    mix-blend-mode: color-burn;
+}
+
+@keyframes pulse {
+    0% { opacity: 80%; }
+    50% { opacity: 40%; }
+    100% { opacity: 80%; }
+}
+
+@keyframes slide-x {
+    from { left: -100%; }
+    to { left: 0%; }
+}

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import "./styles/tailwind.css";
+import "./styles/galaxy-perlin.css";
 
 const app = createApp(App);
 
