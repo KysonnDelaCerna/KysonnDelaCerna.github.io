@@ -1,6 +1,6 @@
 <template>
   <div
-    class="stage"
+    class="stage py-8 my-16"
     @pointerdown="stagePointerDown"
     @mousemove="stageMouseMove"
     @pointermove="stagePointerMove"
@@ -11,32 +11,34 @@
   >
     <div
       class="parallax"
-      :style="{ transform: `rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg)` }"
+      :style="{ transform: `rotateX(${currentX.toFixed(2)}deg) rotateY(${currentY.toFixed(2)}deg) translateX(${shiftX * ringRadius / 100}px)` }"
     >
-      <div class="ring-tilt">
+      <div
+        class="ring-tilt"
+      >
         <div
           class="ring"
           :style="{ transform: `rotateY(${rotation.toFixed(3)}deg)` }"
         >
           <OrbitingCard
-            class="my-4"
             v-for="(project, index) in projects"
+            class="my-4"
             :link="project.html_url"
             :name="project.name"
             :desc="project.description"
             :lang="project.language"
-            :radius="ringRadius"
+            :radius="effectiveRadius"
             :index="index"
             :total="projects.length"
             :key="`${project.name}-${index}`"
           />
         </div>
       </div>
-      <div class="hero-text">
+      <!-- <div class="hero-text">
         <div class="eyebrow">PRESENTATION SYSTEM 297</div>
         <h1>ELEVATE YOUR VISION</h1>
         <p>A holographic interface built from light, glass and motion. Everything here orbits a single idea.</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -51,16 +53,17 @@ export default {
     "reduceMotion",
     "ringRadius",
     "spacingLevel",
+    "shiftX",
+    "baseDrift"
   ],
   components: { OrbitingCard },
   data() {
     return {
       rotation: 0,
       velocity: 0,
-      baseDrift: 0.12,
       friction: 0.94,
       maxVelocity: 7,
-      dragSensitivity: 0.32,
+      dragSensitivity: 0.16,
       wheelSensitivity: 0.05,
       dragging: false,
       lastX: 0,
@@ -175,7 +178,7 @@ export default {
 
 .ring-tilt {
   position: absolute;
-  top: 0; left: 0;
+  top: 0; 
   transform-style: preserve-3d;
   transform: rotateX(var(--tiltX, -20deg)) scale3d(var(--zoom, 1), var(--zoom, 1), var(--zoom, 1));
   transition: transform 0.8s var(--ease);

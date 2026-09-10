@@ -1,15 +1,21 @@
 <template>
-  <div>
+  <div class="pb-16">
     <h1 class="showcase-title">
       {{ title }}
     </h1>
 
-    <div class="w-screen h-screen">
+    <div
+      v-for="(page, index) in paginatedProjects"
+      class="w-screen h-screen relative"
+      :key="`${title}-${index}`"
+    >
       <OrbitingRing
-        :projects="projects"
+        :projects="page.projects"
         :reduceMotion="false"
         :ringRadius="360"
-        :spacingLevel="2.08"
+        :spacingLevel="1.58"
+        :shiftX="page.shiftX"
+        :baseDrift="page.baseDrift"
       />
     </div>
   </div>
@@ -23,8 +29,34 @@ export default {
   components: { OrbitingRing },
   props: ["title", "projects"],
   data() {
+    return {
+      pageSize: 8,
+      baseDrift: 0.12,
+      maxShiftX: -25
+    }
   },
   mounted() {
+  },
+  computed: {
+    paginatedProjects() {
+      const singlePage = this.projects.length <= this.pageSize;
+      const pages = [] as { projects: object[]; shiftX: number; baseDrift: number; }[];
+      for (let i = 0; i < this.projects.length / this.pageSize; i++) {
+        const slice = this.projects.slice(i * this.pageSize, (i + 1) * this.pageSize);
+        pages.push({
+          projects: slice,
+          shiftX: singlePage
+            ? 0
+            : (i % 2) === 0
+              ? this.maxShiftX
+              : -this.maxShiftX,
+          baseDrift: (i % 2) === 0
+            ? this.baseDrift
+            : -this.baseDrift
+        });
+      }
+      return pages;
+    },
   },
   unmounted() {
   }

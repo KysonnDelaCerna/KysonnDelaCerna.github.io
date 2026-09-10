@@ -1,7 +1,7 @@
 <template>
-  <div class="relative bg-gray-900 w-full pb-16">
+  <div class="relative bg-gray-900 w-full">
     <Showcase class="showcase" title="Github Repositories" :projects="repositories" />
-    <!-- <Showcase class="showcase" title="Contributing" :projects="forks" /> -->
+    <Showcase class="showcase" title="Contributing" :projects="forks" />
   </div>
 </template>
 
@@ -36,7 +36,8 @@ export default {
           }
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
         this.repositories = null;
         this.forks = null;
       });
