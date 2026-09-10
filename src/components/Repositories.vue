@@ -1,7 +1,7 @@
 <template>
   <div class="relative bg-gray-900 w-full pb-16">
     <Showcase class="showcase" title="Github Repositories" :projects="repositories" />
-    <Showcase class="showcase" title="Contributing" :projects="forks" />
+    <!-- <Showcase class="showcase" title="Contributing" :projects="forks" /> -->
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       repositories: [] as IRepository[] | null,
-      forks: [] as IRepository[] | null,
+      forks: [] as IRepository[] | null
     };
   },
   mounted() {

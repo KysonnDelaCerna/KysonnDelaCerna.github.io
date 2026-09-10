@@ -4,35 +4,30 @@
       {{ title }}
     </h1>
 
-    <div v-if="!projects">
-      <h2 class="showcase-subtitle">Can't get Github repositories</h2>
-    </div>
-
-    <div v-if="projects.length === 0">
-      <h2 class="showcase-subtitle">Loading Github repositories</h2>
-    </div>
-
-    <div v-else class="showcase-container">
-      <Card
-        class="my-4"
-        :link="project.html_url"
-        :name="project.name"
-        :desc="project.description"
-        :lang="project.language"
-        v-for="(project, index) in projects"
-        :key="`${project.name}-${index}`"
+    <div class="w-screen h-screen">
+      <OrbitingRing
+        :projects="projects"
+        :reduceMotion="false"
+        :ringRadius="360"
+        :spacingLevel="2.08"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Card from "./Card.vue";
+import OrbitingRing from "./OrbitingRing.vue";
 
 export default {
   name: "Showcase",
-  components: { Card },
+  components: { OrbitingRing },
   props: ["title", "projects"],
+  data() {
+  },
+  mounted() {
+  },
+  unmounted() {
+  }
 };
 </script>
 
@@ -45,9 +40,5 @@ export default {
 
 .showcase-subtitle {
   @apply text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg;
-}
-
-.showcase-container {
-  @apply flex flex-row flex-wrap justify-evenly content-evenly md:px-8;
 }
 </style>
