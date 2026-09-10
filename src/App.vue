@@ -10,7 +10,9 @@
     </div>
     <div id="galaxy-perlin">
     </div>
-    <div class="absolute bg-gradient-to-b from-purple-900 via-transparent to-gray-900 z-20 w-full h-full">
+    <div class="mix-blend-hue absolute bg-gradient-to-b from-purple-900 via-transparent to-indigo-900 z-20 w-full h-full">
+    </div>
+    <div class="absolute bg-gradient-to-b from-transparent via-transparent to-gray-900 z-30 w-full h-full">
     </div>
   </div>
   <div class="relative z-50">
