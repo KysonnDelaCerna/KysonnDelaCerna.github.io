@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-16">
+  <div>
     <h1 class="showcase-title">
       {{ title }}
     </h1>
@@ -13,9 +13,11 @@
         :projects="page.projects"
         :reduceMotion="false"
         :ringRadius="360"
-        :spacingLevel="1.58"
+        :spacingLevel="lerp(0.75, 1.60, page.projects.length / pageSize)"
         :shiftX="page.shiftX"
         :baseDrift="page.baseDrift"
+        :title="subtitle"
+        :page="index + 1"
       />
     </div>
   </div>
@@ -27,12 +29,18 @@ import OrbitingRing from "./OrbitingRing.vue";
 export default {
   name: "Showcase",
   components: { OrbitingRing },
-  props: ["title", "projects"],
+  props: [
+    "title",
+    "subtitle",
+    "projects"
+  ],
   data() {
     return {
       pageSize: 8,
       baseDrift: 0.12,
-      maxShiftX: -25
+      maxShiftX: -25,
+      windowWidth: window.innerWidth,
+      smallScreenThreshold: 640
     }
   },
   mounted() {
@@ -45,7 +53,7 @@ export default {
         const slice = this.projects.slice(i * this.pageSize, (i + 1) * this.pageSize);
         pages.push({
           projects: slice,
-          shiftX: singlePage
+          shiftX: singlePage || this.windowWidth < this.smallScreenThreshold
             ? 0
             : (i % 2) === 0
               ? this.maxShiftX
@@ -58,6 +66,11 @@ export default {
       return pages;
     },
   },
+  methods: {
+    lerp(start: number, end: number, amt: number) {
+      return (1 - amt) * start + amt * end;
+    }
+  },
   unmounted() {
   }
 };
@@ -67,10 +80,6 @@ export default {
 @reference "tailwindcss";
 
 .showcase-title {
-  @apply text-white text-center font-bold text-5xl lg:text-6xl py-8 lg:py-10 filter drop-shadow-lg relative z-10;
-}
-
-.showcase-subtitle {
-  @apply text-white text-center font-semibold text-3xl lg:text-4xl pb-4 relative z-10 filter drop-shadow-lg;
+  @apply text-white text-center font-bold text-5xl lg:text-6xl filter drop-shadow-lg relative z-10;
 }
 </style>

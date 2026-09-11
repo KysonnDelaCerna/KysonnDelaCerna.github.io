@@ -1,7 +1,7 @@
 <template>
   <div class="relative bg-gray-900 w-full">
-    <Showcase class="showcase" title="Github Repositories" :projects="repositories" />
-    <Showcase class="showcase" title="Contributing" :projects="forks" />
+    <Showcase class="showcase" title="Github Repositories" subtitle="REPOS" :projects="repositories" />
+    <Showcase class="showcase" title="Contributing" subtitle="FORKS" :projects="forks" />
   </div>
 </template>
 

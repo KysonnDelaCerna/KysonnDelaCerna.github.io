@@ -1,11 +1,12 @@
 <template>
   <div
-    class="stage py-8 my-16"
+    class="stage"
     @pointerdown="stagePointerDown"
     @mousemove="stageMouseMove"
     @pointermove="stagePointerMove"
     @pointerup="stagePointerUp"
     @pointercancel="stagePointerCancel"
+    @pointerleave="stagePointerLeave"
     @wheel="stageWheel"
     :class="{ dragging }"
   >
@@ -22,7 +23,6 @@
         >
           <OrbitingCard
             v-for="(project, index) in projects"
-            class="my-4"
             :link="project.html_url"
             :name="project.name"
             :desc="project.description"
@@ -34,11 +34,11 @@
           />
         </div>
       </div>
-      <!-- <div class="hero-text">
-        <div class="eyebrow">PRESENTATION SYSTEM 297</div>
-        <h1>ELEVATE YOUR VISION</h1>
-        <p>A holographic interface built from light, glass and motion. Everything here orbits a single idea.</p>
-      </div> -->
+      <div class="hero-text">
+        <div><p class="eyebrow text-slate-200 text-lg">{{ title }}</p></div>
+        <h1 class="text-slate-100 text-9xl">{{ `${page}`.padStart(2, "0") }}</h1>
+        <p class="subtitle text-slate-200 text-xs">{{ subtitle }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +54,9 @@ export default {
     "ringRadius",
     "spacingLevel",
     "shiftX",
-    "baseDrift"
+    "baseDrift",
+    "title",
+    "page",
   ],
   components: { OrbitingCard },
   data() {
@@ -125,6 +127,9 @@ export default {
     stagePointerCancel(_: PointerEvent) {
       this.endDrag();
     },
+    stagePointerLeave(_: PointerEvent) {
+      this.endDrag();
+    },
     stageWheel(e: WheelEvent) {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         e.preventDefault();
@@ -148,6 +153,11 @@ export default {
   computed: {
     effectiveRadius() {
       return this.ringRadius * this.spacingLevel;
+    },
+    subtitle() {
+      return this.projects
+        .map((p: { name: string; }) => p.name.toLocaleUpperCase())
+        .join(" | ");
     }
   }
 };
@@ -201,24 +211,18 @@ export default {
 }
 .eyebrow {
   font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(10px, 1.4vw, 13px);
   letter-spacing: 6px;
-  color: var(--cyan);
-  text-shadow: 0 0 16px rgba(6, 182, 212, 0.6);
+  text-shadow: 0 0 16px rgba(0, 0, 0);
   margin-bottom: 22px;
 }
 .hero-text h1 {
-  font-size: clamp(2.8rem, 9vw, 6.4rem);
   font-weight: 700;
   line-height: 0.94;
   letter-spacing: -0.03em;
-  color: var(--white);
-  text-shadow: 0 0 38px rgba(255, 255, 255, 0.28), 0 0 80px rgba(139, 92, 246, 0.32);
+  text-shadow: 0 0 38px rgba(0, 0, 0), 0 0 80px rgba(139, 92, 246, 0.32);
 }
-.hero-text p {
+.subtitle {
   margin-top: 26px;
-  font-size: clamp(0.92rem, 2vw, 1.08rem);
-  color: var(--dim);
   letter-spacing: 0.4px;
   max-width: 440px;
   margin-left: auto;
