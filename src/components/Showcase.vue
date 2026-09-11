@@ -6,20 +6,23 @@
 
     <div
       v-for="(page, index) in paginatedProjects"
-      class="w-screen h-screen relative"
+      class="w-screen relative"
       :key="`${title}-${index}`"
+      :style="{ height: `${2 * ringRadius}px` }"
     >
       <OrbitingRing
         :projects="page.projects"
         :reduceMotion="false"
-        :ringRadius="360"
-        :spacingLevel="lerp(0.75, 1.60, page.projects.length / pageSize)"
+        :ringRadius="ringRadius"
+        :spacingLevel="lerp(minimumSpacingevel, maximumSPacingLevel, page.projects.length / pageSize)"
         :shiftX="page.shiftX"
         :baseDrift="page.baseDrift"
         :title="subtitle"
         :page="index + 1"
       />
     </div>
+
+    <div class="pb-32"></div>
   </div>
 </template>
 
@@ -36,6 +39,9 @@ export default {
   ],
   data() {
     return {
+      ringRadius: 360,
+      minimumSpacingevel: 0.75,
+      maximumSPacingLevel: 1.60,
       pageSize: 8,
       baseDrift: 0.12,
       maxShiftX: -25,

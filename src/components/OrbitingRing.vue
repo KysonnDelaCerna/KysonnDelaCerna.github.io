@@ -181,6 +181,7 @@ export default {
 
 .parallax {
   position: relative;
+  top: -10%;
   width: 1px; height: 1px;
   transform-style: preserve-3d;
   transition: transform 0.6s var(--ease);
