@@ -1,6 +1,6 @@
 <template>
   <Card 
-    class="absolute panel"
+    class="panel"
     :link="link"
     :name="name"
     :desc="desc"
@@ -60,11 +60,6 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  width: 158px;
-  height: 210px;
-  margin-left: -79px;
-  margin-top: -105px;
   transition: transform 0.7s var(--ease);
-  cursor: pointer;
 }
 </style>

@@ -1,23 +1,30 @@
 <template>
-  <a :href="link" target="_blank">
     <div class="card">
-      <div class="card-bg"></div>
-
-      <h1 class="card-title">
-        {{ name }}
-      </h1>
-      <h2 class="card-description">
-        {{ desc }}
-      </h2>
-      <i class="card-icon" :class="langClass"></i>
+      <a target="_blank" :href="link" class="transform-3d">
+        <div class="card-front">
+            <h1 class="card-title">
+              {{ name }}
+            </h1>
+            <h2 class="card-description">
+              {{ desc }}
+            </h2>
+            <i class="card-icon" :class="langClass"></i>
+        </div>
+      </a>
+      <div class="card-back">
+      </div>
     </div>
-  </a>
 </template>
 
 <script lang="ts">
 export default {
   name: "Card",
-  props: ["link", "name", "desc", "lang"],
+  props: [
+    "link",
+    "name",
+    "desc",
+    "lang"
+  ],
   data() {
     return {
       langClass: "",
@@ -39,15 +46,24 @@ export default {
 @reference "tailwindcss";
 
 .card {
-  @apply w-80 h-64 md:w-96 md:h-72 bg-slate-800 p-6 rounded-md drop-shadow-lg overflow-hidden z-0;
+  @apply rounded-md drop-shadow-lg overflow-hidden z-0;
+  width: 400px;
+  height: 300px;
+  margin-left: -200px;
+  margin-top: -150px;
+  transform-style: preserve-3d;
 }
 
-.card-bg {
-  @apply h-32 w-32 absolute bg-orange-500 -top-12 -right-16 z-10 rounded-full transition ease-in-out duration-300;
+.card-front, .card-back {
+  @apply absolute top-0 left-0 w-full h-full backface-hidden;
 }
 
-.card:hover .card-bg {
-  @apply scale-750 bg-orange-700;
+.card-front {
+  @apply bg-slate-800 p-6;
+}
+
+.card-back {
+  @apply bg-black rotate-y-180;
 }
 
 .card-title {
@@ -60,9 +76,5 @@ export default {
 
 .card-icon {
   @apply text-7xl absolute bottom-6 text-slate-300 right-6 transition ease-in-out duration-300 z-20;
-}
-
-.card:hover .card-icon {
-  @apply text-orange-400;
 }
 </style>
