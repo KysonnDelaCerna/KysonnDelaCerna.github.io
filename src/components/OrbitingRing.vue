@@ -31,6 +31,7 @@
             :index="index"
             :total="projects.length"
             :key="`${project.name}-${index}`"
+            :rotation="rotation + currentY"
           />
         </div>
       </div>

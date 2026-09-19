@@ -1,16 +1,22 @@
 <template>
-  <Card 
-    class="panel"
-    :link="link"
-    :name="name"
-    :desc="desc"
-    :lang="lang"
-    :style="style"
-  />
+  <div class="panel" :style="rotationStyle">
+    <RepositoryCard 
+      class="card-front"
+      :link="link"
+      :name="name"
+      :desc="desc"
+      :lang="lang"
+    />
+    <ImageCard
+      class="card-back bg-black"
+      :src="'/pictures/github-white-icon.webp'"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import Card from "./Card.vue";
+import RepositoryCard from "./RepositoryCard.vue";
+import ImageCard from "./ImageCard.vue";
 
 export default {
   name: "OrbitingCard",
@@ -21,9 +27,12 @@ export default {
     "lang",
     "radius",
     "index",
-    "total"
+    "total",
   ],
-  components: { Card },
+  components: {
+    RepositoryCard,
+    ImageCard,
+  },
   data() {
     return {
       angle: 0,
@@ -46,11 +55,11 @@ export default {
     }
   },
   computed: {
-    style() {
+    rotationStyle() {
       return {
-        transform: `rotateY(${this.ry}) translateZ(${this.tz}) rotateZ(${this.rz}) scale(1)`
+        transform: `rotateY(${this.angle}deg) translateZ(${this.radius}px) rotateZ(${this.tilt}deg) scale(1)`
       };
-    }
+    },
   }
 };
 </script>
@@ -60,6 +69,20 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  width: 400px;
+  height: 300px;
+  margin-left: -200px;
+  margin-top: -150px;
   transition: transform 0.7s var(--ease);
+  transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
 }
 </style>
