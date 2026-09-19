@@ -1,13 +1,15 @@
 <template>
-  <Card class="repository-card">
-    <h1 class="card-title">
-      {{ name }}
-    </h1>
-    <h2 class="card-description">
-      {{ desc }}
-    </h2>
-    <i class="card-icon" :class="langClass"></i>
-  </Card>
+  <a target="_blank" :href="link" draggable="false">
+    <Card class="repository-card">
+      <h1 class="card-title">
+        {{ name }}
+      </h1>
+      <h2 class="card-description">
+        {{ desc }}
+      </h2>
+      <i class="card-icon" :class="langClass"></i>
+    </Card>
+  </a>
 </template>
 
 <script lang="ts">
@@ -56,5 +58,9 @@ export default {
 
 .card-icon {
   @apply text-7xl absolute bottom-6 text-slate-300 right-6 transition ease-in-out duration-300 z-20;
+}
+
+.card:hover .card-icon {
+  @apply text-orange-400;
 }
 </style>
