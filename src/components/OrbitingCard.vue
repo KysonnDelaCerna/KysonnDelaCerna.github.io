@@ -9,7 +9,7 @@
     />
     <ImageCard
       class="card-back bg-black"
-      :src="'/pictures/github-white-icon.webp'"
+      :src="'./pictures/github-white-icon.webp'"
     />
   </div>
 </template>
