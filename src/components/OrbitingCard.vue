@@ -9,7 +9,7 @@
     />
     <ImageCard
       class="card-back bg-black"
-      :src="'./pictures/github-white-icon.webp'"
+      :src="githubImage"
     />
   </div>
 </template>
@@ -17,6 +17,7 @@
 <script lang="ts">
 import RepositoryCard from "./RepositoryCard.vue";
 import ImageCard from "./ImageCard.vue";
+import GithubImage from "../../pictures/github-white-icon.webp";
 
 export default {
   name: "OrbitingCard",
@@ -39,7 +40,8 @@ export default {
       tilt: 0,
       ry: "0deg",
       tz: "0px",
-      rz: "0deg"
+      rz: "0deg",
+      githubImage: GithubImage
     }
   },
   mounted() {
