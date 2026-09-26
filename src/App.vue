@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[url(/pictures/bg.jpg)] bg-cover bg-center h-full relative">
+  <div class="bg-black bg-[url(/pictures/bg.jpg)] bg-cover bg-center h-full relative">
     <div class="absolute flex flex-col items-center justify-center w-full h-full z-50 p-8">
       <h1 id="title" class="text-white text-center font-bold text-7xl md:text-8git-xl lg:text-9xl">
         {{ title }}
