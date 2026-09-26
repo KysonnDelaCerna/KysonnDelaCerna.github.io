@@ -2,13 +2,15 @@
     <div
       ref="blackhole"
       class="blackhole"
+      :style="{ height: `${height}px`, width: `${width}px` }"
     >
       <canvas  ref="canvas"></canvas>
       <div class="centerHover"
+        :style="{ height: `${height}px`, width: `${width}px`, marginLeft: `-${centerX}px`, marginTop: `-${centerY}px` }"
         @mouseover="centerHoverMouseOver"
         @mouseout="centerHoverMouseOut"
       >
-        <span>{{ text }}</span>
+        <slot></slot>
       </div>
     </div>
 </template>
@@ -20,17 +22,16 @@ export default {
   name: "BlackHoleButton",
   props: [
     "maxOrbit",
-    "starCount",
-    "text"
+    "starCount"
   ],
   data() {
     return {
       startTime: new Date().getTime(),
       currentTime: 0,
-      height: 0,
-      width: 0,
-      centerY: 0,
-      centerX: 0,
+      height: this.maxOrbit * 2,
+      width: this.maxOrbit * 2,
+      centerY: this.maxOrbit,
+      centerX: this.maxOrbit,
       stars: [] as Star[],
       collapse: false,
     }
@@ -38,22 +39,22 @@ export default {
   mounted() {
     // https://codepen.io/ruijadom/pen/jGKjML
     
-    const blackholeElement = this.$refs.blackhole as HTMLDivElement;
+    // const blackholeElement = this.$refs.blackhole as HTMLDivElement;
 
-    this.height = blackholeElement.clientHeight;
-    this.width = blackholeElement.clientWidth;
-    this.centerY = this.height / 2;
-    this.centerX = this.width / 2;
+    // this.height = blackholeElement.clientHeight;
+    // this.width = blackholeElement.clientWidth;
+    // this.centerY = this.height / 2;
+    // this.centerX = this.width / 2;
 
     const canvasElement = this.$refs.canvas as HTMLCanvasElement;
     const context = canvasElement.getContext("2d");
     
-    this.setDPI(canvasElement, 192);
+    this.setDPI(canvasElement);
     
     if (context) {
       // context.globalCompositeOperation = "multiply";
-      context.fillStyle = 'rgba(25,25,25,1)';  // Initial clear of the canvas, to avoid an issue where it all gets too dark
-		  context.fillRect(0, 0, this.width, this.height);
+      // context.fillStyle = 'rgba(25,25,25,1)';  // Initial clear of the canvas, to avoid an issue where it all gets too dark
+		  // context.fillRect(0, 0, this.width, this.height);
     }
     
 		for (let i = 0; i < this.starCount; i++) {  // create stars
@@ -64,7 +65,7 @@ export default {
     this.loop();
   },
   methods: {
-    setDPI(canvas: HTMLCanvasElement | null, dpi: number) {
+    setDPI(canvas: HTMLCanvasElement | null) {
       if (!canvas) {
         return;
       }
@@ -75,16 +76,8 @@ export default {
       if (!canvas.style.height)
         canvas.style.height = this.height + 'px';
 
-      const scaleFactor = dpi / 96;
-      canvas.width = Math.ceil(this.width * scaleFactor);
-      canvas.height = Math.ceil(this.height * scaleFactor);
-      const ctx = canvas.getContext('2d');
-
-      if (!ctx) {
-        return;
-      }
-
-      ctx.scale(scaleFactor, scaleFactor);
+      canvas.width = Math.ceil(this.width);
+      canvas.height = Math.ceil(this.height);
     },
     centerHoverMouseOver() {
       this.collapse = true;
@@ -100,11 +93,26 @@ export default {
       const context = canvasElement.getContext("2d");
 
       if (context) {
-        context.fillStyle = 'rgba(0,0,0,0.3)'; // somewhat clear the context, this way there will be trails behind the stars 
-        context.fillRect(0, 0, +this.width, +this.height);
+        context.globalCompositeOperation = "destination-in";
+
+        context.fillStyle = "rgba(0, 0, 0, 0.50)"; 
+        context.fillRect(0, 0, this.width, this.height);
+
+        context.globalCompositeOperation = "source-over";
+
+        // const gradient = context.createRadialGradient(this.centerX, this.centerY, 0, this.centerX, this.centerY, this.maxOrbit);
+
+        // gradient.addColorStop(0, "rgba(0, 0, 0, 1)");   // Opaque red at the center
+        // gradient.addColorStop(0.8, "rgba(0, 0, 0, 0.5)"); // Semi-transparent
+        // gradient.addColorStop(1, "rgba(0, 0, 0, 0)");     // Fully transparent at the edge
+
+        // context.fillStyle = gradient;
+        // context.beginPath();
+        // context.arc(this.centerX, this.centerY, this.maxOrbit, 0, 2 * Math.PI, false);
+        // context.fill();
 
         for (const star of this.stars) {  // For each star
-          star.draw(context, this.collapse, +this.currentTime, +this.centerX, +this.centerY);
+          star.draw(context, !this.collapse, +this.currentTime, +this.centerX, +this.centerY);
         }
       }
 
@@ -123,62 +131,16 @@ export default {
 }
 
 .centerHover {
-	width: 255px;
-	height: 255px;
-	background-color: transparent;
+  @apply flex-col content-center;
+
 	border-radius: 50%;
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-top: -128px;
-	margin-left: -128px;
+  top: 50%;
+  left: 50%;
 	z-index: 2;
 	cursor: pointer;
-	line-height: 255px;
-	text-align: center;
-	transition: all 500ms;
-	
-	&.open  {
-		opacity: 0;
-		pointer-events: none;
-	}
-	
-	&:hover span {
-		color: #DDD;
-		
-		&:before { background-color: #DDD; }
-		&:after { background-color: #DDD; }
-	}
-	
-	span {
-		color: #666;
-		font-family: serif;
-		font-size: 18px;
-		position: relative;
-		transition: all 500ms;
-		
-		&:before {
-			content: '';
-			display: inline-block;
-			height: 1px;
-			width: 16px;
-			margin-right: 12px;
-			margin-bottom: 4px;
-			background-color: #666;
-			transition: all 500ms;
-		}
-		&:after {
-			content: '';
-			display: inline-block;
-			height: 1px;
-			width: 16px;
-			margin-left: 12px;
-			margin-bottom: 4px;
-			background-color: #666;
-			transition: all 500ms;
-		}
-	}
 }
+
 canvas {
 	position: relative;
 	z-index: 1;

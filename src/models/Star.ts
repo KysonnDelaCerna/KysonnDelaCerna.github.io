@@ -67,17 +67,17 @@ export default class Star {
     this.rotation = this.startRotation + (currentTime * this.speed);
     if (!collapse) { // not hovered
       if (this.y > this.yOrigin) {
-        this.y-= 2.5;
+        this.y -= 2.5;
       }
       if (this.y < this.yOrigin-4) {
-        this.y+= (this.yOrigin - this.y) / 10;
+        this.y += (this.yOrigin - this.y) / 10;
       }
     } else { // on hover
       if (this.y > this.hoverPos) {
-        this.y-= (this.hoverPos - this.y) / -5;
+        this.y -= (this.hoverPos - this.y) / -5;
       }
       if (this.y < this.hoverPos-4) {
-        this.y+= 2.5;
+        this.y += 2.5;
       }
     }
 

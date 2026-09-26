@@ -25,19 +25,22 @@
         <h2 class="text-white text-center font-semibold text-3xl lg:text-4xl pt-4 pb-6" >
           Want to work together? Send me an email.
         </h2>
-        <a href="mailto:kysonndelacerna@gmail.com">
-          <button class="rounded-md text-white font-semibold text-3xl lg:text-4xl py-3 px-10 md:py-5 md:px-20 border-2 mt-6">
+        <a href="mailto:kysonndelacerna@gmail.com" class="pt-12">
+          <BlackHoleButton 
+            maxOrbit="260"
+            starCount="2500"
+          >
+            <div class="flex flex-row justify-center  w-full">
+              <i class="text-7xl text-white bi bi-envelope-at-fill"></i>
+            </div>
+          </BlackHoleButton>
+          <!-- <button class="rounded-md text-white font-semibold text-3xl lg:text-4xl py-3 px-10 md:py-5 md:px-20 border-2 mt-6">
             Email Me
-          </button>
+          </button> -->
         </a>
       </div>
     </div>
-    <BlackHoleButton 
-      class="w-screen h-screen"
-      maxOrbit="255"
-      starCount="2500"
-      text="Email Me"
-    />
+    
   </div>
 </template>
 
