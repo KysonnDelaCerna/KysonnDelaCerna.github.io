@@ -32,15 +32,23 @@
         </a>
       </div>
     </div>
+    <BlackHoleButton 
+      class="w-screen h-screen"
+      maxOrbit="255"
+      starCount="2500"
+      text="Email Me"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Repositories from "./components/Repositories.vue";
+import BlackHoleButton from "./components/BlackHoleButton.vue";
 
 export default {
   components: {
     Repositories,
+    BlackHoleButton
   },
   data() {
     return {
