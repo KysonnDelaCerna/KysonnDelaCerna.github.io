@@ -15,7 +15,7 @@
     <div class="absolute bg-gradient-to-b from-transparent via-transparent to-gray-900 z-30 w-full h-full">
     </div>
   </div>
-  <div class="relative z-50">
+  <div class="relative z-50 overflow-x-hidden">
     <Repositories />
     <div class="bg-gradient-to-b from-gray-900 to-black h-screen relative">
       <div class="flex flex-col items-center justify-center w-screen h-screen p-8">
@@ -40,7 +40,6 @@
         </a>
       </div>
     </div>
-    
   </div>
 </template>
 
